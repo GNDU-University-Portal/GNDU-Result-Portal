@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNDU Result <Portal></Portal></title>
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #2563eb;
+            --background: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text-main);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header Style */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Search Card Form */
+        .search-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            margin-bottom: 25px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        select,
+        input {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        select:focus,
+        input:focus {
+            border-color: var(--secondary-color);
+        }
+
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Result Panel View */
+        .result-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            display: none;
+            /* Hidden by default */
+        }
+
+        .result-image {
+            display: block;
+            width: 100%;
+            max-height: 700px;
+            object-fit: contain;
+            margin: 0 auto 20px;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .badge {
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .percentage-badge {
+            color: #166534;
+            background-color: #dcfce7;
+        }
+
+        .pass-badge {
+            color: #ffffff;
+            background-color: #16a34a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Guru Nanak Dev University</h1>
+            <p>Online Examination Result Portal (Simulation prototype)</p>
+        </header>
+
+        <!-- Selection Criteria View -->
+        <div class="search-card">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="year">Select Year</label>
+                    <select id="year">
+                        <option value="2026">May 2026</option>
+                        <option value="2025">December 2025</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="course">Select Course</label>
+                    <select id="course">
+                        <option value="BCA">Bachelor of Computer Applications (BCA)</option>
+                        <option value="BTECH">B.Tech Computer Science</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="semester">Semester</label>
+                    <select id="semester">
+                        <option value="2">Semester II</option>
+                        <option value="4">Semester IV</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rollNo">Roll Number</label>
+                    <input type="text" id="rollNo" placeholder="e.g. 1021420" value="1021420">
+                </div>
+            </div>
+            <button onclick="fetchResult()">Fetch Result</button>
+        </div>
+
+        <!-- Result image view -->
+        <div id="resultPanel" class="result-panel">
+            <img id="resultImage" class="result-image" src="" alt="">
+            <div class="badges">
+                <span class="badge percentage-badge">70%</span>
+                <span class="badge pass-badge">Pass</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fetchResult() {
+            const rollNumber = document.getElementById('rollNo').value.trim();
+            const resultPanel = document.getElementById('resultPanel');
+            const resultImage = document.getElementById('resultImage');
+
+            resultPanel.style.display = 'none';
+            resultImage.style.display = 'none';
+            resultImage.removeAttribute('src');
+
+            if (rollNumber !== '11792517907') {
+                return;
+            }
+
+            resultImage.src = 'result-image.jpg';
+            resultImage.style.display = 'block';
+            resultPanel.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>
